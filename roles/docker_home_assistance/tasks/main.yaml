@@ -10,6 +10,15 @@
   with_items:
     - "/var/docker-compose/data/home-assistance/config"
 
+- name: Create Docker files from template
+  template:
+    src: "configuration.yaml.j2"
+    dest: "/var/docker-compose/data/home-assistance/config/configuration.yaml"
+    mode: 0755
+    owner: pi
+    group: pi
+
+
 - name: get_facts
   include_tasks: ../../../tasks/get_facts.yaml
 

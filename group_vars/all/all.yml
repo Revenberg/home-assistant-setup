@@ -1,4 +1,6 @@
-base_directory: /opt/smarthome
 timezone: Europe/Amsterdam
 locale: en_GB.UTF-8
 wifi_country: nl
+latitude: 53.179770
+longitude: 6.168302
+  
