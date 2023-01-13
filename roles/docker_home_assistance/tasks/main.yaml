@@ -1,0 +1,17 @@
+---
+- name: create /var/docker-compose/home-assistance
+  file:
+    path: "{{  item }}"
+    state: directory
+    recurse: yes
+    mode: 0755
+    owner: pi
+    group: pi
+  with_items:
+    - "/var/docker-compose/data/home-assistance/config"
+
+- name: get_facts
+  include_tasks: ../../../tasks/get_facts.yaml
+
+- name: add to docker-compose
+  include_tasks: docker-compose.yaml

@@ -1,0 +1,5 @@
+---
+pswrdfile: /home/pi/.pswrd
+
+containter_name: "homeassistant"
+containter_expose_port: 8123

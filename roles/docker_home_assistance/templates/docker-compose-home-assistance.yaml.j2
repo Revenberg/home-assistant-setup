@@ -1,0 +1,9 @@
+  {{ containter_name }}:
+    container_name: {{ containter_name }}
+    image: "ghcr.io/home-assistant/home-assistant:stable"
+    volumes:
+      - /var/docker-compose/data/home-assistance/config:/config
+      - /etc/localtime:/etc/localtime:ro
+    restart: unless-stopped
+    privileged: true
+    network_mode: host

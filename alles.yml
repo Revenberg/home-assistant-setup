@@ -14,4 +14,7 @@
   - role: docker_mqtt
     vars:
       mqtthost: home-assistant
+  - role: 
+      docker_home_assistance
+
   - role: docker_compose
