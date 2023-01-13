@@ -1,0 +1,36 @@
+---
+- name: Install ntfs-3g
+  apt: 
+    name: [ "ntfs-3g"]
+
+- name: create /media/usb
+  file:
+    path: "{{ item }}"
+    state: directory
+    recurse: yes
+    mode: 0755
+    owner: pi
+    group: pi
+  with_items:
+  - "/var/docker-compose"
+  
+- name: Mount up device by label DATA
+  mount:
+    path: /media/usb
+    src: LABEL=DATA
+    fstype: ntfs
+    opts: auto,nofail,noatime,user,rw,exec,uid=1000,gid=1000,umask=0000
+    state: mounted
+    boot: yes
+  ignore_errors: True
+  register: mount
+
+- name: Create symbolic link to /var/docker-compose/data
+  file:
+    src: /media/usb/data
+    path: "/var/docker-compose/data"
+    state: link
+    mode: 0755
+    owner: pi
+    group: pi  
+  ignore_errors: True

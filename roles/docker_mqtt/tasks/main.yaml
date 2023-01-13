@@ -1,0 +1,30 @@
+--- 
+- name: create /var/docker-compose/mqtt 
+  file:
+    path: "{{  item }}"
+    state: directory
+    recurse: yes
+    mode: 0755
+    owner: pi
+    group: pi
+  with_items:         
+    - "/var/docker-compose/data/mqtt/config"    
+    - "/var/docker-compose/data/mqtt/data"
+    - "/var/docker-compose/data/mqtt/log"
+
+- name: template MQTT files
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: 0755
+    owner: pi
+    group: pi
+  with_items:
+  - { src: "mosquitto.conf.j2", dest: "/var/docker-compose/data/mqtt/config/mosquitto.conf" }
+  - { src: "passwords.mqtt.j2", dest: "/var/docker-compose/data/mqtt/config/passwords.mqtt" }
+
+- name: get_facts
+  include_tasks: ../../../tasks/get_facts.yaml
+
+- name: add to docker-compose
+  include_tasks: docker-compose.yaml

@@ -1,0 +1,22 @@
+---
+- name: current date time
+  debug: 
+    msg: "{{lookup('pipe','date \"+%Y-%m-%d %H:%M\"')}}"
+
+- name: apt-get --reinstall install
+  shell:
+    cmd: "apt-get --reinstall install"
+
+- name: Update apt-get cache
+  apt: >
+    update_cache=yes
+    cache_valid_time=3600
+
+- name: "set timezone to {{ timezone }}"
+  timezone:
+    name: "{{ timezone }}"
+
+- name: apt-get autoremove -y
+  shell:
+    cmd: "apt-get autoremove -y"
+  

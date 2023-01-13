@@ -1,0 +1,17 @@
+---
+- hosts: rpi
+  become_user: root
+  become: yes
+  vars:
+    ansible_python_interpreter: /usr/bin/python3
+
+  roles:
+  - role: docker_local
+  - role: mountusb
+
+  - role: docker
+
+  - role: docker_mqtt
+    vars:
+      mqtthost: home-assistant
+  - role: docker_compose

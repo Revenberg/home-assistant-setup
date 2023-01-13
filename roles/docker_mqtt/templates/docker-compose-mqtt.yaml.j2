@@ -1,0 +1,17 @@
+  mqtt:
+    image: "eclipse-mosquitto:latest"
+    container_name: mqtt
+    environment:
+      - TZ=Europe/Amsterdam
+      - "MQTT_BROKER_URL=mqtt://{{ ip_address }}"
+    ports:
+      - 1883:1883
+      - 9001:9001
+    user: "1000:1000"
+    volumes:
+      - /var/docker-compose/data/mqtt/config:/mosquitto/config
+      - /var/docker-compose/data/mqtt/data:/mosquitto/data
+      - /var/docker-compose/data/mqtt/log:/mosquitto/log
+    restart: always
+    network_mode: host
+    

@@ -1,0 +1,77 @@
+---
+- name: Check for docker in /run
+  stat:
+    path: /run/docker
+  register: p
+
+- name: Install Docker
+  shell:
+    cmd: "curl -sSL https://get.docker.com | sh"
+  when: not p.stat.exists
+
+- name: Add the user 'pi' with a bash shell, appending the group 'docker' to the user's groups
+  user:
+    name: pi
+    shell: /bin/bash
+    groups:
+    - docker
+    append: yes
+
+- name: install libffi-dev libssl-dev
+  apt:
+    name: [ "libffi-dev", "libssl-dev" ]
+    install_recommends: yes
+
+- name: install python3
+  apt:
+    name: [ "python3","python3-pip" ]
+    install_recommends: yes
+
+- name: install python-configparser
+  apt:
+    name: [ "python-configparser" ]
+    state: absent
+
+- name: Install docker-compose
+  shell:
+    cmd: "pip3 -v install docker-compose"
+
+- name: systemctl enable docker
+  shell:
+    cmd: "systemctl enable docker"
+
+- name: create /var/docker-compose
+  file:
+    path: "{{  item }}"
+    state: directory
+    recurse: yes
+    mode: 0755
+    owner: pi
+    group: pi
+  with_items:
+    - "/var/docker-compose/data/portainer"
+
+- name: create /media/usb/docker
+  file:
+    path: "{{  item }}"
+    state: directory
+    mode: 0755
+    owner: pi
+    group: pi
+  with_items:
+    - "/media/usb/docker"
+
+- name: service docker stop
+  shell:
+    cmd: "service docker stop"
+  args:
+    warn: false
+
+- name: 'prepare default daemon configuration'
+  copy:
+    src: 'daemon.json'
+    dest: '/etc/docker/daemon.json'
+
+- name: service docker start
+  shell:
+    cmd: "service docker start"

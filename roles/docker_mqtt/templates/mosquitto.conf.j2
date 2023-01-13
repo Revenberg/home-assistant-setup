@@ -1,0 +1,51 @@
+#retry_interval 20
+sys_interval 10
+#store_clean_interval 10
+user mosquitto
+max_inflight_messages 40
+max_queued_messages 200
+queue_qos0_messages false
+#message_size_limit 0
+allow_zero_length_clientid true
+persistent_client_expiration 3m
+#allow_duplicate_messages false
+autosave_interval 60
+autosave_on_changes false
+
+persistence false
+#persistence true
+#persistence_file mosquitto.db
+#persistence_location /mosquitto/data/
+
+# Port to use for the default listener.
+listener 1883
+
+listener 9001
+protocol websockets
+
+#log_dest file /mosquitto/log/mosquitto.log
+log_dest file /mosquitto/log/mosquitto.log
+log_type all
+connection_messages true
+log_timestamp true
+
+#include_dir /config/conf.d
+
+# If the password.mqtt file is empty, this has no effect.
+allow_anonymous true
+
+{% if mqtthost is defined and mqtthost != ""  %}
+# =========================================================
+# Bridges
+# =========================================================
+
+connection br-me-to-rpipower
+address 192.168.2.80:1883
+bridge_insecure true
+cleansession false
+start_type automatic
+topic # both 0
+{% endif %}
+
+# DO NOT CHANGE THIS LINE BELOW!!!
+#password_file /config/passwords.mqtt
