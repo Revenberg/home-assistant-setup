@@ -1,15 +1,10 @@
 homeassistant:
-  configuration:
-    mqtt:
-      broker: 127.0.0.1
-      port: 1883
   name: Home
   latitude: {{ latitude }}
   longitude: {{ longitude }}
   unit_system: metric
   currency: EUR
-  country: NL
-  language: NL
+  language: nl
   temperature_unit: C
   time_zone: {{ timezone }}
   external_url: "https://{{ ext_ip}}:8123"
