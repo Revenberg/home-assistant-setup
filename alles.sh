@@ -99,5 +99,4 @@ else
     docker ps -a
 fi
 
-echo "prometheus exporters:"
 cat /var/docker-compose/docker-compose.yml | grep '\- 9' | grep -v ':'

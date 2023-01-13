@@ -1,0 +1,11 @@
+zigbee2mqtt:
+  permit_join: true
+  devices:
+    '0x842e14fffe2a3505':
+        friendly_name: 'Lamp 1'
+    '0x7cb03eaa0a079953':
+        friendly_name: 'Oprit'
+    '0x00124b0018e2a303':
+        friendly_name: 'Router 1'
+    '0x00124b0014d9b724':
+        friendly_name: 'Coordinator'
