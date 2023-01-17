@@ -1,0 +1,24 @@
+---
+- name: utility present debian-like
+  ansible.builtin.apt:
+    name:
+      - nfs-common
+      - nfs4-acl-tools
+    state: present
+  when: ansible_os_family == 'Debian'
+
+- name: check mountpoint exist
+  ansible.builtin.file:
+    path: "/var/docker-compose/data/home-assistance/config/backups"
+    state: directory
+    mode: "777"
+    owner: root
+    group: root
+
+- name: mount network share
+  ansible.posix.mount:
+    src: "192.168.2.205:/share/Public/backups"
+    path: "/var/docker-compose/data/home-assistance/config/backups"
+    fstype: nfs
+    opts: "rw,sync"
+    state: mounted

@@ -18,9 +18,11 @@
     owner: pi
     group: pi
 
-
 - name: get_facts
   include_tasks: ../../../tasks/get_facts.yaml
 
 - name: add to docker-compose
   include_tasks: docker-compose.yaml
+
+- name: mount for backup
+  include_tasks: backup
