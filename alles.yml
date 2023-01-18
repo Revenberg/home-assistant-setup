@@ -17,6 +17,6 @@
   - role: 
       docker_home_assistance
   - role:
-    docker_influxdb
+      docker_influxdb
 
   - role: docker_compose
