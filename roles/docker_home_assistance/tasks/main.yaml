@@ -26,3 +26,8 @@
 
 - name: mount for backup
   include_tasks: backup
+
+- name: 'Copy backup config'
+  copy:
+    src: 'backup.conf'
+    dest: '/etc/logrotate.d/backup.conf'
