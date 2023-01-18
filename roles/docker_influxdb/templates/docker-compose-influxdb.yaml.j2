@@ -1,0 +1,14 @@
+  influxdb:
+    image: arm32v7/influxdb:latest
+    container_name: influxdb
+    ports:
+      - "8083:8083"
+      - "8086:8086"
+      - "8090:8090"
+      - "2003:2003"
+    env_file:
+      - '/var/docker-compose/data/influxdb/env.influxdb'
+    volumes:
+      # Data persistency
+      # sudo mkdir -p /srv/docker/influxdb/data
+      - /var/docker-compose/data/influxdb/data/lib/influxdb:/var/lib/influxdb

@@ -16,5 +16,7 @@
       mqtthost: home-assistant
   - role: 
       docker_home_assistance
+  - role:
+    docker_influxdb
 
   - role: docker_compose
