@@ -1,4 +1,7 @@
 --- 
+- name: get_facts
+  include_tasks: ../../../tasks/get_facts.yaml
+  
 - name: create /var/docker-compose/influxdb 
   file:
     path: "{{  item }}"
